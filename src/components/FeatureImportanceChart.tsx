@@ -6,13 +6,30 @@ interface FeatureImportanceChartProps {
   importances: number[];
 }
 
-const FeatureImportanceChart: React.FC<FeatureImportanceChartProps> = ({
-  featureNames,
-  importances,
-}) => {
+const featureNames = [
+  "Agriculture Land (Acres)",
+  "Food Banana",
+  "Farm Implements Owned",
+  "Total Household Members",
+  "Sweet Potatoes",
+  "Ground Nuts",
+  "Coffee",
+  "Business Participation",
+];
+const importances = [
+  0.0927, 0.0609, 0.0518, 0.0517, 0.0507, 0.0378, 0.0315, 0.0303,
+];
+
+const FeatureImportanceChart: React.FC<FeatureImportanceChartProps> = () => {
   return (
-    <div>
-      <h2 className="text-lg font-semibold mb-4 w-full">Feature Importance</h2>
+    <div className="w-full border border-gray-300">
+      <div className="bg-gray-200 p-3">
+        <h2 className="text-lg font-semibold mb-4 w-full">
+          Feature Importance Chart
+        </h2>
+        <p>What were the most important features?</p>
+      </div>
+
       <Plot
         data={[
           {
@@ -20,7 +37,7 @@ const FeatureImportanceChart: React.FC<FeatureImportanceChartProps> = ({
             x: importances,
             y: featureNames,
             orientation: "h", // Horizontal bar chart
-            width: 0.5,
+            width: 0.8,
             marker: {
               color: "rgb(55, 83, 109)",
             },
@@ -41,10 +58,10 @@ const FeatureImportanceChart: React.FC<FeatureImportanceChartProps> = ({
             t: 50,
             b: 50,
           },
-          //   height: 400,
-          //   width: 700,
           bargap: 0,
+          // add full width
         }}
+        style={{ width: "100%" }}
       />
     </div>
   );

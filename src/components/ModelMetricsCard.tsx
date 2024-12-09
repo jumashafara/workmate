@@ -26,30 +26,30 @@ const ModelStatsTable: React.FC<MetricsProps> = ({
         <thead>
           <tr className="bg-gray-100">
             <th className="px-4 py-2 border-b">Metric</th>
-            <th className="px-4 py-2 border-b">Class 0</th>
-            <th className="px-4 py-2 border-b">Class 1</th>
+            <th className="px-4 py-2 border-b">Precision</th>
+            <th className="px-4 py-2 border-b">Recall</th>
+            <th className="px-4 py-2 border-b">F1 Score</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td className="px-4 py-2 border-b">Precision</td>
-            <td className="px-4 py-2 border-b text-center">{precisionClass0.toFixed(2)}</td>
+            <td className="px-4 py-2 border-b">Achieved</td>
             <td className="px-4 py-2 border-b text-center">{precisionClass1.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td className="px-4 py-2 border-b">Recall</td>
-            <td className="px-4 py-2 border-b text-center">{recallClass0.toFixed(2)}</td>
             <td className="px-4 py-2 border-b text-center">{recallClass1.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td className="px-4 py-2 border-b">F1 Score</td>
-            <td className="px-4 py-2 border-b text-center">{f1ScoreClass0.toFixed(2)}</td>
             <td className="px-4 py-2 border-b text-center">{f1ScoreClass1.toFixed(2)}</td>
           </tr>
           <tr>
-            <td className="px-4 py-2 border-b">Accuracy</td>
-            <td colSpan={2} className="px-4 py-2 border-b text-center">{accuracy.toFixed(2)}</td>
+            <td className="px-4 py-2 border-b">Not Achieved</td>
+            <td className="px-4 py-2 border-b text-center">{precisionClass0.toFixed(2)}</td>
+            <td className="px-4 py-2 border-b text-center">{recallClass0.toFixed(2)}</td>
+            <td className="px-4 py-2 border-b text-center">{f1ScoreClass0.toFixed(2)}</td>
           </tr>
+          <tr>
+            <td className="px-4 py-2 border-b">Accuracy</td>
+            <td className="px-4 py-2 border-b text-center">{accuracy.toFixed(2)}</td>
+            <td className="px-4 py-2 border-b text-center">{accuracy.toFixed(2)}</td>
+            <td className="px-4 py-2 border-b text-center">{accuracy.toFixed(2)}</td>
+          </tr>          
         </tbody>
       </table>
     </div>

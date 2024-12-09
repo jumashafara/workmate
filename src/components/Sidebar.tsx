@@ -8,10 +8,10 @@ const Sidebar: React.FC = () => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       {/* Sidebar */}
       <div
-        className={`bg-gray-800 text-white transition-all duration-300 ${
+        className={`bg-gray-800 text-white transition-all duration-300 min-h-screen ${
           isOpen ? "w-64" : "w-16"
         }`}
       >
@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
               className="flex items-center px-4 py-2 hover:bg-gray-700"
             >
               <FaHome className="text-lg" />
-              {isOpen && <span className="ml-4">Home</span>}
+              {isOpen && <span className="ml-4">Feature Importance</span>}
             </Link>
           </li>
           <li>
