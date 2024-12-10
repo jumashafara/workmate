@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import Dashbord from "./pages/FeatureImportance";
 import FeatureImporances from "./pages/FeatureImportance";
+import ModelMetrics from "./pages/ModelMetrics";
+import WhatIf from "./pages/WhatIf";
 
 const App: React.FC = () => {
   return (
@@ -10,7 +11,8 @@ const App: React.FC = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<FeatureImporances />} />
-          <Route path="/profile" element={<h1>Profile</h1>} />
+          <Route path="/model-metrics" element={<ModelMetrics />} />
+          <Route path="/what-if" element={<WhatIf />} />
           <Route path="/settings" element={<h1>Settings</h1>} />
         </Routes>
       </Layout>

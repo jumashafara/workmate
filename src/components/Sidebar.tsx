@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FaBars, FaHome, FaUser, FaCog } from "react-icons/fa";
+import {
+  FaBars,
+  FaChartBar,
+  FaChartLine,
+  FaQuestion,
+  FaCog,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
@@ -27,17 +33,26 @@ const Sidebar: React.FC = () => {
               to="/"
               className="flex items-center px-4 py-2 hover:bg-gray-700"
             >
-              <FaHome className="text-lg" />
+              <FaChartBar className="text-lg" />
               {isOpen && <span className="ml-4">Feature Importance</span>}
             </Link>
           </li>
           <li>
             <Link
-              to="/profile"
+              to="/model-metrics"
               className="flex items-center px-4 py-2 hover:bg-gray-700"
             >
-              <FaUser className="text-lg" />
-              {isOpen && <span className="ml-4">Profile</span>}
+              <FaChartLine className="text-lg" />
+              {isOpen && <span className="ml-4">Model Metrics</span>}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/what-if"
+              className="flex items-center px-4 py-2 hover:bg-gray-700"
+            >
+              <FaQuestion className="text-lg" />
+              {isOpen && <span className="ml-4">What If ...</span>}
             </Link>
           </li>
           <li>
