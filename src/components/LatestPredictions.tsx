@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
-const LatestPredictions:React.FC = () => {
-    const household_data = [
-    { hhid: 'Household 1', cluster: 'Cluster 1', prediction: '0.5' },
-    { hhid: 'Household 2', cluster: 'Cluster 2', prediction: '0.5' },
-    { hhid: 'Household 3', cluster: 'Cluster 3', prediction: '0.5' },
-    // Add more variables as needed
-  ];
+const LatestPredictions: React.FC = () => {
+  const [sample_data, updateSampleData] = React.useState<any>([]);
+
+  const getSampleData = async () => {
+    const response = await fetch("http://localhost:8000/sample_data");
+    const sample_data = await response.json();
+    return sample_data;
+  };
+
+  // useEffect to get sample data
+  useEffect(() => {
+    getSampleData().then((sample_data) => {
+      updateSampleData(sample_data);
+    });
+  }, []);
   return (
     <div className="w-full border border-gray-300">
       <div className="bg-gray-200 p-3">
@@ -22,8 +30,8 @@ const LatestPredictions:React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {household_data.map((household, index) => (
-            <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : ""}>
+          {sample_data.map((household: any) => (
+            <tr key={household.hhid}>
               <td className="px-4 py-2 border-b">{household.hhid}</td>
               <td className="px-4 py-2 border-b">{household.cluster}</td>
               <td className="px-4 py-2 border-b">{household.prediction}</td>
@@ -32,7 +40,7 @@ const LatestPredictions:React.FC = () => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default LatestPredictions
+export default LatestPredictions;

@@ -41,3 +41,4 @@ npm run dev
 - TypeScript
 - Vite
 - PlotlyJS
+- GitHub
