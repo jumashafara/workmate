@@ -6,6 +6,7 @@ import {
   FaQuestion,
   FaCog,
 } from "react-icons/fa";
+import { FaPerson } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
@@ -44,6 +45,15 @@ const Sidebar: React.FC = () => {
             >
               <FaChartLine className="text-lg" />
               {isOpen && <span className="ml-4">Model Metrics</span>}
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/individual-predictions"
+              className="flex items-center px-4 py-2 hover:bg-gray-700"
+            >
+              <FaPerson className="text-lg" />
+              {isOpen && <span className="ml-4">Individual Predictions</span>}
             </Link>
           </li>
           <li>

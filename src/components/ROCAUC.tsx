@@ -76,7 +76,7 @@ const ROCCurve: React.FC = () => {
             type: "scatter",
             mode: "lines+markers",
             name: "ROC Curve",
-            line: { shape: "linear", color: "blue" },
+            line: { shape: "linear", color: "#ea580c" },
           },
           {
             x: [0, 1],

@@ -25,8 +25,8 @@ const ConfusionMatrix: React.FC = () => {
             type: "heatmap",
             colorscale: [
               [0, "rgb(255, 255, 255)"], // White for the lowest value
-              [0.5, "rgb(173, 216, 230)"], // Light Blue for middle values
-              [1, "rgb(0, 0, 128)"], // Dark Blue for the highest value
+              // oranges
+              [1, "#ea580c"], // Orange for the middle value
             ], // Custom colors
 
             showscale: true, // Show the color scale

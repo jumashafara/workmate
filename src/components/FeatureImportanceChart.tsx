@@ -39,7 +39,7 @@ const FeatureImportanceChart: React.FC<FeatureImportanceChartProps> = () => {
             orientation: "h", // Horizontal bar chart
             width: 0.8,
             marker: {
-              color: "rgb(55, 83, 109)",
+              color: "#ea580c",
             },
           },
         ]}
