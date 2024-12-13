@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PieChart from "./PieChart";
 
 const Prediction: React.FC = () => {
   const [sampleData, setSampleData] = useState<any[]>([]);
@@ -59,37 +60,59 @@ const Prediction: React.FC = () => {
         <h2 className="text-lg font-semibold mb-4 w-full">Prediction</h2>
         <h2>What are the probabilities of achieving and not achieving?</h2>
       </div>
-      <div className="p-3">
-        {/* Dropdown for household selection */}
-        <select
-          value={selectedHousehold || ""}
-          onChange={handleHouseholdChange}
-          className="border border-orange-600 p-3 w-full rounded"
-        >
-          <option value="">Select Household</option>
-          {sampleData.map((household: any) => (
-            <option key={household.hhid} value={household.hhid}>
-              {household.hhid}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="p-3">
-        {/* Results table */}
-        <table className="border border-gray-300 w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border-b text-left">Achieved</th>
-              <th className="px-4 py-2 border-b text-left">Not Achieved</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="px-4 py-2 border-b text-left">{(prediction).toFixed(2)}</td>
-              <td className="px-4 py-2 border-b text-left">{(1 - prediction).toFixed(2)}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="flex flex-col md:flex-row">
+        <div className="w-1/2">
+          <div className="p-3">
+            {/* Dropdown for household selection */}
+            <select
+              value={selectedHousehold || ""}
+              onChange={handleHouseholdChange}
+              className="border border-orange-600 p-3 w-full rounded"
+            >
+              <option value="">Select Household</option>
+              {sampleData.map((household: any) => (
+                <option key={household.hhid} value={household.hhid}>
+                  {household.hhid}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="p-3">
+            <button className="btn bg-orange-600 text-white p-3 w-full rounded">
+              Enter Data
+            </button>
+          </div>
+          <div className="p-3">
+            {/* Results table */}
+            <table className="border border-gray-300 w-full">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border-b text-left">Achieving</th>
+                  <th className="px-4 py-2 border-b text-left">
+                    Not Achieving
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="px-4 py-2 border-b text-left">
+                    {prediction.toFixed(2)}
+                  </td>
+                  <td className="px-4 py-2 border-b text-left">
+                    {(1 - prediction).toFixed(2)}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="w-1/2">
+          <PieChart
+            values={[prediction, 1 - prediction]}
+            labels={["Achieving", "Not Achieving"]}
+            title={""}
+          />
+        </div>
       </div>
     </div>
   );
