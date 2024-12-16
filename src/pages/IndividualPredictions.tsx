@@ -2,6 +2,7 @@ import React from "react";
 // import SelectPassenger from "../components/SelectPassenger";
 import Prediction from "../components/Prediction";
 import LatestPredictions from "../components/LatestPredictions";
+import FeatureInput from "../components/FeatureInput";
 
 const IndividualPredictions: React.FC = () => {
   return (
@@ -17,7 +18,10 @@ const IndividualPredictions: React.FC = () => {
             </div>
           </div>
           <div>
-            <LatestPredictions/>
+            <FeatureInput />
+          </div>
+          <div>
+            <LatestPredictions />
           </div>
         </div>
       </div>

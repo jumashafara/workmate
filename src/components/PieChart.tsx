@@ -24,7 +24,7 @@ const PieChart: React.FC<chartData> = (chartData) => {
 
   return (
     <div>
-      <Plot data={data} layout={layout} style={{width: '90%'}} />
+      <Plot data={data} layout={layout} style={{ width: "98%" }} />
     </div>
   );
 };
