@@ -5,7 +5,7 @@ import VariableDescriptions from "../components/FeatureDescriptions";
 const FeatureImporances: React.FC = () => {
   return (
     <>
-      <div className="pb-5">
+      <div className="pb-5 font-roboto">
         <h1 className="text-2xl font-bold">Feature Importances</h1>
       </div>
       <div className="flex flex-col space-y-5">

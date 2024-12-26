@@ -1,47 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PieChart from "./PieChart";
+import { getPrediction } from "../api/GetPrediction";
 
-const Prediction: React.FC = () => {
-  const [sampleData, setSampleData] = useState<any[]>([]);
+interface PredictionProps {
+  sampleData: any[];
+}
+
+const Prediction: React.FC<PredictionProps> = ({ sampleData }) => {
   const [prediction, setPrediction] = useState<number>(0.5);
   const [selectedHousehold, setSelectedHousehold] = useState<string | null>(
     null
   );
+  const [localFeatures, setLocalFeatures] = useState<any>(null);
 
-  const getSampleData = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/sample_data");
-      if (!response.ok) throw new Error("Failed to fetch sample data");
-      const data = await response.json();
-      setSampleData(data);
-    } catch (error) {
-      console.error("Error fetching sample data:", error);
-    }
-  };
-
-  const getPrediction = async (data: any) => {
-    try {
-      const response = await fetch("http://127.0.0.1:8001/predictor/predict/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to fetch prediction");
-      const predictionProbabilities = await response.json();
-      setPrediction(predictionProbabilities.prediction_probability);
-    } catch (error) {
-      console.error("Error fetching prediction:", error);
-    }
-  };
-
-  // Fetch sample data on mount
+  // Load feature data from local storage on component mount
   useEffect(() => {
-    getSampleData();
-  }, []);
+    const storedData = localStorage.getItem("featureData");
+    if (storedData) {
+      setLocalFeatures(JSON.parse(storedData));
+    }
+  }, [prediction, setPrediction]);
 
-  const handleHouseholdChange = (
+  const handleHouseholdChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const householdId = event.target.value;
@@ -49,8 +29,22 @@ const Prediction: React.FC = () => {
     const householdData = sampleData.find(
       (household) => household.hhid === householdId
     );
+
     if (householdData) {
-      getPrediction(householdData);
+      // Use selected household data for prediction
+      const predictionResult = await getPrediction(householdData);
+      setPrediction(predictionResult.prediction_probability);
+      localStorage.setItem("featureData", JSON.stringify(householdData));
+    }
+  };
+
+  const handleUseLocalFeatures = async () => {
+    if (localFeatures) {
+      // Use local feature data for prediction
+      const predictionResult = await getPrediction(localFeatures);
+      setPrediction(predictionResult.prediction_probability);
+    } else {
+      alert("No local feature data found!");
     }
   };
 
@@ -78,25 +72,32 @@ const Prediction: React.FC = () => {
             </select>
           </div>
           <div className="p-3">
-            <button className="btn bg-orange-600 text-white p-3 w-full rounded">
-              Enter Data
+            <button
+              onClick={handleUseLocalFeatures}
+              className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full"
+            >
+              Use Local Feature Data
             </button>
           </div>
           <div className="p-3">
             {/* Results table */}
-            <table className="border border-gray-300 w-full">
+            <table className="border border-gray-300 w-full bg-white">
               <thead>
-                <tr>
-                  <th className="px-4 py-2 border-b text-left">Achieving</th>
-                  <th className="px-4 py-2 border-b text-left">
-                    Not Achieving
-                  </th>
+                <tr className="bg-gray-200">
+                  <th className="px-4 py-2 border-b text-left">Status</th>
+                  <th className="px-4 py-2 border-b text-left">Probability</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr className="">
+                  <td className="px-4 py-2 border-b text-left">Achieving</td>
                   <td className="px-4 py-2 border-b text-left">
                     {prediction.toFixed(2)}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-2 border-b text-left">
+                    Not Achieving
                   </td>
                   <td className="px-4 py-2 border-b text-left">
                     {(1 - prediction).toFixed(2)}

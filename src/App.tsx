@@ -1,4 +1,7 @@
 import React from "react";
+// index.tsx
+import '@fontsource/roboto/400.css'; // Regular weight.
+import '@fontsource/roboto/700.css'; // Bold weight.
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import FeatureImporances from "./pages/FeatureImportance";
@@ -6,7 +9,7 @@ import ModelMetrics from "./pages/ModelMetrics";
 import WhatIf from "./pages/WhatIf";
 import IndividualPredictions from "./pages/IndividualPredictions";
 
-const App: React.FC = () => {
+const App: React.FC = () => {  
   return (
     <Router>
       <Layout>

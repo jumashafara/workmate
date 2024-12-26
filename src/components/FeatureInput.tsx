@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-type FeatureInputProps = {
+type FeatureInputs = {
   hhid: string;
   cluster: string;
   prediction: number;
@@ -19,35 +19,51 @@ type FeatureInputProps = {
 };
 
 const FeatureInput: React.FC = () => {
-  const [features, setFeatures] = useState<FeatureInputProps>({
+  const [features, setFeatures] = useState<FeatureInputs>({
     hhid: "",
     cluster: "",
     prediction: 0,
-  Land_size_for_Crop_Agriculture_Acres: 0,
-  farm_implements_owned: 0,
-  tot_hhmembers: 0,
-  Average_Water_Consumed_Per_Day: 0,
-  perennial_crops_grown_food_banana: 0,
-  sweet_potatoes: 0,
-  ground_nuts: 0,
-  irish_potatoes: 0,
-  business_participation: 0,
-  cassava: 0,
-  maize: 0,
-  vsla_participation: 0,
+    Land_size_for_Crop_Agriculture_Acres: 0,
+    farm_implements_owned: 0,
+    tot_hhmembers: 0,
+    Average_Water_Consumed_Per_Day: 0,
+    perennial_crops_grown_food_banana: 0,
+    sweet_potatoes: 0,
+    ground_nuts: 0,
+    irish_potatoes: 0,
+    business_participation: 0,
+    cassava: 0,
+    maize: 0,
+    vsla_participation: 0,
   });
+
+  // Load from local storage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("featureData");
+    if (savedData) {
+      setFeatures(JSON.parse(savedData));
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFeatures((prevFeatures) => ({
-      ...prevFeatures,
+    const updatedFeatures = {
+      ...features,
       [name]: isNaN(Number(value)) ? value : Number(value),
-    }));
+    };
+
+    // Update state and save to local storage
+    setFeatures(updatedFeatures);
+    localStorage.setItem("featureData", JSON.stringify(updatedFeatures));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(features);
+
+    // Save data to local storage explicitly on form submission
+    localStorage.setItem("featureData", JSON.stringify(features));
+    console.log("Feature data saved:", features);
+    alert("Feature data has been saved to local storage!");
   };
 
   return (
@@ -67,13 +83,19 @@ const FeatureInput: React.FC = () => {
                 type="text"
                 id={key}
                 name={key}
-                value={features[key as keyof FeatureInputProps]}
+                value={features[key as keyof FeatureInputs]}
                 onChange={handleInputChange}
                 className="border rounded p-2"
               />
             </div>
           ))}
         </div>
+        <button
+          type="submit"
+          className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full"
+        >
+          Save
+        </button>
       </form>
     </div>
   );

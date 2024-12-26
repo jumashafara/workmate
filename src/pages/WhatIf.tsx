@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const WhatIf:React.FC = () => {
-  return (
-    <div>WhatIf</div>
-  )
-}
+const WhatIf: React.FC = () => {
+  return <div className="font-roboto">WhatIf</div>;
+};
 
-export default WhatIf
+export default WhatIf;
